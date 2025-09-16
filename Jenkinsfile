@@ -1,13 +1,9 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18'
-        }
-    }
+    agent any
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/madhukamath29/jenkins-proj.git'
+                git branch: 'main', url: 'https://github.com/madhukamath29/jenkins-proj.git'
             }
         }
         stage('Install Dependencies') {
@@ -18,7 +14,6 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh 'npm test'
-                junit '**/test-results.xml'  // collect test results if using JUnit
             }
         }
         stage('Build') {
@@ -33,3 +28,4 @@ pipeline {
         }
     }
 }
+
